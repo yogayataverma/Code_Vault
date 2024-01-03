@@ -1,2 +1,2 @@
 # YOGAYATA
-Everday Regular Codes
+I put daily regular codes here.
