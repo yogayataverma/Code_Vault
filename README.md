@@ -1,22 +1,11 @@
 # Regular_Vault
 
-Welcome to Regular_Vault! This repository is a space where I sporadically push code, sharing various snippets, and ideas. While the commits may not be daily, each push represents a new code, reflecting my coding journey.
-
-## Table of Contents
-- [Introduction](#codeflexhub)
-- [Projects](#projects)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
-
-## Projects
-
-Here, you'll find a mix of projects, ranging from small coding challenges to more extensive applications. Feel free to explore and use any code that interests you.
+Welcome to my Regular Vault! This repository is a collection of code snippets that I push whenever inspiration strikes.
 
 ## Usage
 
-To explore the code, simply navigate through the repository's structure. Each directory may contain its own README file for more detailed information about the specific project.
+Feel free to explore the code in this repository. Each file contains a standalone code snippet in a particular language.
 
 ```bash
-# Example command to clone the repository
-git clone https://github.com/your-username/CodeFlexHub.git
+# Clone the repository
+git clone https://github.com/yogayataverma/Regular_Vault.git
