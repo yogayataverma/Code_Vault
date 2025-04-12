@@ -1,63 +1,89 @@
-import { useState, useEffect , useRef } from 'react';
-import './App.css'
- 
-function App() {
+import { useState, useEffect, useRef } from 'react';
+import './App.css';
 
-  var [hrs, setHrs] = useState(59);
-  var [min, setMin] = useState(59);
-  var [megahrs, setMegaHrs] = useState(0);
-  var [running , setRunning] = useState(false);
-  var interval  = useRef(null);
+function App() {
+  const [seconds, setSeconds] = useState(0);
+  const [running, setRunning] = useState(false);
+  const intervalRef = useRef(null);
 
   useEffect(() => {
-
-  if(running)
-  {
-    interval.current = setInterval(() => {
-      setMin( prevMin => {
-        if(prevMin == 59)
-        {
-          return 0;
-        }
-        return prevMin + 1;
-      });
-
-      setHrs(prevHrs => {
-        if(min == 59)
-        {
-          return  prevHrs + 1;
-        }
-        else
-        {
-          return prevHrs;
-        } 
-      });
-
-      setMegaHrs(prevMegaHrs =>{
-        if(hrs == 59)
-          {
-            return  prevMegaHrs + 1;
-          }
-          else
-          {
-            return prevMegaHrs;
-          } 
-      })
-
+    if (running) {
+      intervalRef.current = setInterval(() => {
+        setSeconds(prev => prev + 1);
       }, 1000);
-  }
+    } else {
+      clearInterval(intervalRef.current);
+    }
 
-  return () => clearInterval(interval.current);
+    return () => clearInterval(intervalRef.current);
+  }, [running]);
 
-  }, [running, min]);
+  const megaHrs = Math.floor(seconds / 3600);
+  const hrs = Math.floor((seconds % 3600) / 60);
+  const mins = seconds % 60;
+
+  const formatTime = (value) => String(value).padStart(2, '0');
 
   return (
-    <div style={{textAlign:"center"}}>
-    <h1>{megahrs} : {hrs} : {min}</h1>
-    <button onClick={() => setRunning(true)}>Start</button>
-    <button onClick={() => setRunning(false)}>Stop</button>
+    <div style={styles.container}>
+      {/* <h1 style={styles.title}>⏱️ Stopwatch</h1> */}
+      <div style={styles.timeDisplay}>
+        <span>{formatTime(megaHrs)}:</span>
+        <span>{formatTime(hrs)}:</span>
+        <span>{formatTime(mins)}</span>
+      </div>
+      <div style={styles.buttons}>
+        <button style={styles.button} onClick={() => setRunning(true)}>Start</button>
+        <button style={styles.button} onClick={() => setRunning(false)}>Stop</button>
+        <button style={styles.button} onClick={() => { setRunning(false); setSeconds(0); }}>Reset</button>
+      </div>
     </div>
-  )
+  );
 }
 
-export default App
+const styles = {
+  container: {
+    height: '100vh',
+    width: '100vw',
+    scroll: 'hidden',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    background: 'transparent',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    boxSizing: 'border-box',
+    color: '#ffffff',
+    fontFamily: 'Arial, sans-serif',
+  },
+  title: {
+    marginBottom: '20px',
+    color: '#00e0ff',
+  },
+  timeDisplay: {
+    fontSize: '48px',
+    fontWeight: 'bold',
+    marginBottom: '30px',
+    color: '#ffffff',
+  },
+  buttons: {
+    display: 'flex',
+    justifyContent: 'center',
+    gap: '15px',
+  },
+  button: {
+    padding: '10px 20px',
+    fontSize: '16px',
+    fontWeight: 'bold',
+    borderRadius: '5px',
+    border: '1px solid #00e0ff',
+    background: 'transparent',
+    color: '#00e0ff',
+    cursor: 'pointer',
+    transition: 'all 0.3s ease',
+  },
+};
+
+
+export default App;
